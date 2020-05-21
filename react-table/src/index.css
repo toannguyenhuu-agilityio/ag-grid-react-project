@@ -14,3 +14,18 @@
 .ag-column-drop-cell-text {
   color: #fff;
 }
+
+.inline-row {
+  margin-left: 10px;
+  background-color: black;
+  padding: 2px;
+  border-radius: 2px;
+}
+
+.market-value {
+  color: yellow;
+}
+
+.unrealized-gains {
+  color: green;
+}

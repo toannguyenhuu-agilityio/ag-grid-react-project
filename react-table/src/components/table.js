@@ -5,6 +5,7 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { createMockDataTable } from "../mock-data";
 import CustomHeader from "./customHeader";
+import GroupRowCustom from "./groupRowCustom";
 
 class Table extends Component {
   constructor(props) {
@@ -26,14 +27,17 @@ class Table extends Component {
           field: "caption",
           suppressMenu: true,
           minWidth: 120,
+          rowGroup: true,
         },
         {
           field: "marketValue",
           sortable: false,
+          type: "number",
         },
         {
           field: "unrealizedGains",
           suppressMenu: true,
+          type: "number",
         },
         {
           field: "fairValueLevel",
@@ -60,7 +64,20 @@ class Table extends Component {
         resizable: true,
         headerComponentParams: { menuIcon: "fa-bars" },
       },
-      frameworkComponents: { agColumnHeader: CustomHeader },
+      columnTypes: {
+        number: {
+          editable: true,
+          valueParser: function (params) {
+            return parseInt(params.newValue);
+          },
+          aggFunc: "sum",
+        },
+      },
+      frameworkComponents: {
+        agColumnHeader: CustomHeader,
+        groupRowInnerRenderer: GroupRowCustom,
+      },
+      groupRowInnerRenderer: "groupRowInnerRenderer",
       autoGroupColumnDef: { minWidth: 200 },
       rowGroupPanelShow: "always",
       rowData: null,
@@ -99,6 +116,9 @@ class Table extends Component {
             suppressMakeColumnVisibleAfterUnGroup={true}
             rowGroupPanelShow={this.state.rowGroupPanelShow}
             onGridReady={this.onGridReady}
+            groupRowInnerRenderer={this.state.groupRowInnerRenderer}
+            groupUseEntireRow={true}
+            columnTypes={this.state.columnTypes}
           />
         </div>
       </div>

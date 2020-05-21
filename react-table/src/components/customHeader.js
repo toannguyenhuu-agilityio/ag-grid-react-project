@@ -34,7 +34,7 @@ export default class CustomHeader extends Component {
           onClick={this.onSortRequested.bind(this, "asc")}
           onTouchEnd={this.onSortRequested.bind(this, "asc")}
         >
-          <i class="fa fa-wifi"></i>
+          <i className="fa fa-wifi"></i>
         </div>
       );
     }
